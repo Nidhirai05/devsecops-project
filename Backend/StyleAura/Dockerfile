@@ -3,7 +3,7 @@
 # ==========================================
 # Use Debian-based images (slim/jammy) which are regularly patched and have fewer reported
 # vulnerabilities compared to older Alpine variants for these Java images.
-FROM maven:3.9-eclipse-temurin-21-jdk-jammy AS build
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
 # Copy the pom.xml first to cache dependencies efficiently
@@ -17,7 +17,7 @@ RUN mvn package -DskipTests
 # ==========================================
 # Stage 2: Runtime image using JRE 21 (Secure & Lightweight)
 # ==========================================
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Copy the built JAR from stage 1
