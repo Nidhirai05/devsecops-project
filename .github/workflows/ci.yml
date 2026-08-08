@@ -60,7 +60,7 @@ jobs:
       # Compile Spring Boot backend code to generate bytecode in target/classes
       - name: Compile Backend Bytecode
         run: |
-          cd Backend
+          cd Backend/StyleAura
           chmod +x mvnw
           ./mvnw compile -DskipTests
 
