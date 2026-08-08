@@ -1,0 +1,245 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: CI pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+
+  #########################################################
+  # 1. Secret Scanning (Gitleaks)
+  #########################################################
+  gitleaks:
+    name: "1. Gitleaks Secret Scan"
+    runs-on: Agent-1
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks Scan
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  #########################################################
+  # 2. Code Quality & Deep SAST Analysis (SonarQube)
+  #########################################################
+  sonarqube:
+    name: "2. SonarQube SAST Scan"
+    runs-on: Agent-1
+    needs: gitleaks
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for SonarQube git-blame analysis
+
+      # Set up Java 21 inside this job's isolated environment
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+          cache-dependency-path: 'backend/pom.xml'
+
+      # Compile Spring Boot backend code to generate bytecode in target/classes
+      - name: Compile Backend Bytecode
+        run: |
+          cd Backend
+          chmod +x mvnw
+          ./mvnw compile -DskipTests
+
+      # Perform Deep Analysis with SonarQube Scan Action v6
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  #########################################################
+  # 3. Filesystem Security Scan (Trivy)
+  #########################################################
+  trivy-fs:
+    name: "3. Trivy Filesystem Scan"
+    runs-on: Agent-1
+    needs: sonarqube
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Reports Directory
+        run: mkdir -p reports
+
+      - name: Trivy FS Scan
+        uses: aquasecurity/trivy-action@master
+        # env:
+        #   TRIVY_SKIP_DB_UPDATE: 'true'
+        #   TRIVY_SKIP_JAVA_DB_UPDATE: 'true'
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'table'
+          output: 'reports/trivy-fs-report.txt'
+          # cache-dir: '/var/tmp/trivy-cache'
+          
+      - name: Upload Trivy FS Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-fs-report
+          path: 'reports/trivy-fs-report.txt'
+          retention-days: 30
+  #########################################################
+  # 4. Software Composition Analysis (OWASP Dependency-Check)
+  #########################################################
+  owasp-dependency-check:
+    name: "4. OWASP Dependency-Check"
+    runs-on: Agent-1
+    needs: trivy-fs
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Reports Directory
+        run: mkdir -p reports
+
+      - name: OWASP Dependency Check Scan
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'task-management-system'
+          path: '.'
+          format: 'HTML'
+          out: 'reports'
+          
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-dependency-check-report
+          path: reports/
+          retention-days: 30
+
+#########################################################
+  # 5. Build, Scan, and Push Docker Images
+  #########################################################
+  build-scan-and-push:
+    name: "5. Build, Scan, & Push Images"
+    runs-on: ubuntu-latest
+    needs: owasp-dependency-check
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Reports Directory
+        run: mkdir -p reports
+
+      - name: Docker Hub Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # --- BACKEND: BUILD, SBOM, SCAN, PUSH ---
+      - name: Build Backend Docker Image
+        run: docker build -t nidhirai1105/styleaura-backend-app:${{ github.sha }} ./Backend
+
+      - name: Install Syft & Generate Backend SBOM
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sudo sh -s -- -b /usr/local/bin
+          syft nidhirai1105/styleaura-backend-app:${{ github.sha }} -o spdx-json=reports/backend-sbom.json
+
+      - name: Trivy Backend Image Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          image-ref: 'nidhirai1105/styleaura-backend-app:${{ github.sha }}'
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Push Backend Image to Docker Hub
+        run: docker push nidhirai1105/styleaura-backend-app:${{ github.sha }}
+
+
+      # --- FRONTEND: BUILD, SBOM, SCAN, PUSH ---
+      - name: Build Frontend Docker Image
+        run: docker build -t nidhirai1105/styleaura-frontend-app:${{ github.sha }} ./Frontend
+
+      - name: Generate Frontend SBOM
+        run: syft nidhirai1105/styleaura-frontend-app:${{ github.sha }} -o spdx-json=reports/frontend-sbom.json
+
+      - name: Trivy Frontend Image Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          image-ref: 'nidhirai1105/styleaura-frontend-app:${{ github.sha }}'
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Push Frontend Image to Docker Hub
+        run: docker push nidhirai1105/styleaura-frontend-app:${{ github.sha }}
+
+
+      # --- UPLOAD REPORTS ---
+      - name: Upload SBOM Reports Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-reports
+          path: |
+            reports/backend-sbom.json
+            reports/frontend-sbom.json
+          retention-days: 30
+
+
+ # #########################################################
+ #  # 6. Update Separate GitOps Repository
+ #  #########################################################
+ #  update-gitops:
+ #    name: "6. Update GitOps Repository"
+ #    runs-on: ubuntu-latest
+ #    needs: build-scan-and-push
+ #    steps:
+ #      - name: Checkout GitOps Repository
+ #        uses: actions/checkout@v4
+ #        with:
+ #          repository: 'Nidhirai05/Task-Manager-Gitops'
+ #          token: ${{ secrets.GITOPS_ACCESS_TOKEN }}
+ #          ref: 'main'
+ #          path: gitops-repo
+
+ #      - name: Update Manifests with New Image Tags
+ #        working-directory: gitops-repo
+ #        run: |
+ #          git config --global user.name "GitHub Actions Bot"
+ #          git config --global user.email "actions@github.com"
+
+ #          # cd gitops-repo
+          
+ #          # Update Backend Tag
+ #          sed -i 's|image: nidhirai1105/backend-app:.*|image: nidhirai1105/backend-app:${{ github.sha }}|g' k8s/backend-deployment.yaml
+          
+ #          # Update Frontend Tag
+ #          sed -i 's|image: nidhirai1105/frontend-app:.*|image: nidhirai1105/frontend-app:${{ github.sha }}|g' k8s/frontend-deployment.yaml
+          
+ #          if git diff --quiet; then
+ #            echo "No changes detected."
+          # else
+          #   git add k8s/backend-deployment.yaml k8s/frontend-deployment.yaml
+          #   git commit -m "chore(gitops): update image tags to ${{ github.sha }}"
+          #   git push origin main
+          # fi
