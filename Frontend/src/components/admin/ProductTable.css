@@ -1,0 +1,55 @@
+.product-table-wrapper{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.table-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.table-header h3{
+
+    font-family:'Playfair Display',serif;
+
+    margin:0;
+
+}
+
+.table-product-image{
+
+    width:70px;
+
+    height:80px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+.btn-warning{
+
+    color:#fff;
+
+}

@@ -1,0 +1,13 @@
+.register-page{
+
+    background:#F8F9FC;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:60px 0;
+
+}

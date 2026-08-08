@@ -1,0 +1,127 @@
+.register-card{
+
+    background:#fff;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.register-card h2{
+
+    text-align:center;
+
+    font-family:'Playfair Display',serif;
+
+    margin-bottom:10px;
+
+    color:#2D2A32;
+
+}
+
+.register-card p{
+
+    text-align:center;
+
+    color:#777;
+
+    margin-bottom:30px;
+
+}
+
+.register-card .form-control{
+
+    border-radius:30px;
+
+    padding:12px 18px;
+
+}
+
+.register-card .form-control:focus{
+
+    border-color:#7C3AED;
+
+    box-shadow:none;
+
+}
+
+.password-box{
+
+    position:relative;
+
+}
+
+.password-toggle{
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    color:#666;
+
+}
+
+.register-btn{
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#7C3AED;
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.register-btn:hover{
+
+    background:#5B21B6;
+
+}
+
+.login-link{
+
+    margin-top:25px;
+
+    text-align:center;
+
+}
+
+.login-link a{
+
+    margin-left:8px;
+
+    color:#7C3AED;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+@media(max-width:576px){
+
+.register-card{
+
+    padding:25px;
+
+}
+
+}

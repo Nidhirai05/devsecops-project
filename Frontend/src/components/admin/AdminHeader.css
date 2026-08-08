@@ -1,0 +1,129 @@
+.admin-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#fff;
+
+    padding:22px 30px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.admin-header h2{
+
+    font-family:'Playfair Display',serif;
+
+    margin-bottom:5px;
+
+    color:#2D2A32;
+
+}
+
+.admin-header p{
+
+    margin:0;
+
+    color:#777;
+
+    font-size:15px;
+
+}
+
+.admin-header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.notification-btn{
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#F5F3FF;
+
+    color:#7C3AED;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.notification-btn:hover{
+
+    background:#7C3AED;
+
+    color:#fff;
+
+}
+
+.notification-btn i{
+
+    font-size:20px;
+
+}
+
+.admin-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.profile-icon{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:#7C3AED;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:20px;
+
+}
+
+.admin-profile h6{
+
+    margin:0;
+
+    color:#2D2A32;
+
+}
+
+.admin-profile small{
+
+    color:#777;
+
+}

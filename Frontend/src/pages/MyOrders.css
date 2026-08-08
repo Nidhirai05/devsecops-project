@@ -1,0 +1,19 @@
+.my-orders-page{
+
+    background:#F8F9FC;
+
+    min-height:100vh;
+
+    padding:50px 0;
+
+}
+
+.orders-title{
+
+    font-family:'Playfair Display',serif;
+
+    color:#2D2A32;
+
+    margin-bottom:35px;
+
+}

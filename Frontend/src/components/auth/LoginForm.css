@@ -1,0 +1,183 @@
+.login-card{
+
+    background:#fff;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.login-card h2{
+
+    font-family:'Playfair Display',serif;
+
+    color:#2D2A32;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+}
+
+.login-card p{
+
+    text-align:center;
+
+    color:#777;
+
+    margin-bottom:30px;
+
+}
+
+.login-card .form-label{
+
+    font-weight:600;
+
+    color:#444;
+
+}
+
+.login-card .form-control{
+
+    border-radius:30px;
+
+    padding:12px 18px;
+
+}
+
+.login-card .form-control:focus{
+
+    box-shadow:none;
+
+    border-color:#7C3AED;
+
+}
+
+.password-box{
+
+    position:relative;
+
+}
+
+.password-toggle{
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    color:#666;
+
+}
+
+.login-options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:20px 0;
+
+    font-size:14px;
+
+}
+
+.login-options label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#555;
+
+}
+
+.login-options a{
+
+    text-decoration:none;
+
+    color:#7C3AED;
+
+    font-weight:600;
+
+}
+
+.login-btn{
+
+    width:100%;
+
+    border:none;
+
+    background:#7C3AED;
+
+    color:#fff;
+
+    padding:13px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.login-btn:hover{
+
+    background:#5B21B6;
+
+}
+
+.register-link{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#666;
+
+}
+
+.register-link a{
+
+    margin-left:8px;
+
+    color:#7C3AED;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+@media(max-width:576px){
+
+.login-card{
+
+    padding:25px;
+
+}
+
+.login-options{
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+}

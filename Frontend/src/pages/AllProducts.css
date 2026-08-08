@@ -1,0 +1,37 @@
+.all-products-page{
+
+    padding:70px 0;
+
+    background:#FAFAFC;
+
+}
+
+.all-products-header{
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+.all-products-header h1{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:48px;
+
+    font-weight:700;
+
+    color:#2D2A32;
+
+}
+
+.all-products-header p{
+
+    font-size:18px;
+
+    color:#666;
+
+    margin-top:12px;
+
+}

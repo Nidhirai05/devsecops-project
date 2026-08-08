@@ -1,0 +1,155 @@
+.admin-sidebar{
+
+    width:260px;
+    min-height:100vh;
+
+    background:#2D2A32;
+
+    color:#fff;
+
+    position:fixed;
+    left:0;
+    top:0;
+
+    padding:30px 20px;
+
+}
+
+.admin-logo{
+
+    margin-bottom:50px;
+
+    text-align:center;
+
+}
+
+.admin-logo h3{
+
+    font-family:'Playfair Display',serif;
+
+    color:#fff;
+
+    margin-bottom:8px;
+
+}
+
+.admin-logo p{
+
+    color:#bbb;
+
+    font-size:14px;
+
+}
+
+.admin-sidebar nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.sidebar-link{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    color:#ddd;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.sidebar-link:hover{
+
+    background:#7C3AED;
+
+    color:#fff;
+
+}
+
+.sidebar-link.active{
+
+    background:#7C3AED;
+
+    color:#fff;
+
+}
+
+.sidebar-link i{
+
+    font-size:18px;
+
+}
+
+/* ************ */
+.admin-sidebar-bottom{
+
+    margin-top:50px;
+
+    padding-top:25px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.sidebar-action{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:13px 18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:transparent;
+
+    color:#ddd;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.sidebar-action:hover{
+
+    background:#7C3AED;
+
+    color:#fff;
+
+}
+
+.logout-action:hover{
+
+    background:#DC3545;
+
+    color:#fff;
+
+}

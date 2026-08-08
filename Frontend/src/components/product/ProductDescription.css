@@ -1,0 +1,48 @@
+.product-description{
+
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+.product-description h3{
+
+    font-family:'Playfair Display',serif;
+    margin-bottom:20px;
+    color:#2D2A32;
+
+}
+
+.product-description p{
+
+    color:#555;
+    line-height:1.8;
+
+}
+
+.product-description ul{
+
+    padding-left:20px;
+
+}
+
+.product-description li{
+
+    margin-bottom:10px;
+
+}
+
+.product-description table{
+
+    margin-top:20px;
+
+}
+
+.product-description th{
+
+    width:180px;
+    color:#444;
+
+}

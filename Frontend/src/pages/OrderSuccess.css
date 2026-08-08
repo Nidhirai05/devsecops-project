@@ -1,0 +1,143 @@
+.order-success-page{
+
+    background:#F8F9FC;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:60px 0;
+
+}
+
+.success-card{
+
+    max-width:650px;
+
+    margin:auto;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:50px;
+
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.success-icon{
+
+    font-size:70px;
+
+    color:#28A745;
+
+    margin-bottom:25px;
+
+}
+
+.success-card h2{
+
+    font-family:'Playfair Display',serif;
+
+    margin-bottom:18px;
+
+    color:#2D2A32;
+
+}
+
+.success-card p{
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+.order-id{
+
+    margin:25px 0;
+
+    font-size:18px;
+
+}
+
+.order-id strong{
+
+    color:#7C3AED;
+
+    margin-left:10px;
+
+}
+
+.success-buttons{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.success-buttons .btn{
+
+    border-radius:30px;
+
+    padding:12px 28px;
+
+}
+
+.success-buttons .btn-primary{
+
+    background:#7C3AED;
+
+    border:none;
+
+}
+
+.success-buttons .btn-primary:hover{
+
+    background:#5B21B6;
+
+}
+
+.success-buttons .btn-outline-primary{
+
+    border-color:#7C3AED;
+
+    color:#7C3AED;
+
+}
+
+.success-buttons .btn-outline-primary:hover{
+
+    background:#7C3AED;
+
+    color:#fff;
+
+}
+
+@media(max-width:768px){
+
+.success-card{
+
+    padding:35px 25px;
+
+}
+
+.success-icon{
+
+    font-size:55px;
+
+}
+
+}

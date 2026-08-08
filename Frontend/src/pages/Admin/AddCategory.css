@@ -1,0 +1,51 @@
+.category-form-card{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    max-width:700px;
+
+}
+
+.category-form-card h3{
+
+    font-family:'Playfair Display',serif;
+
+    color:#2D2A32;
+
+}
+
+.category-form-card .form-control{
+
+    height:48px;
+
+    border-radius:10px;
+
+}
+
+.category-form-card .form-control:focus{
+
+    border-color:#7C3AED;
+
+    box-shadow:0 0 0 .2rem rgba(124,58,237,.15);
+
+}
+
+.category-form-card .btn-primary{
+
+    background:#7C3AED;
+
+    border:none;
+
+}
+
+.category-form-card .btn-primary:hover{
+
+    background:#5B21B6;
+
+}

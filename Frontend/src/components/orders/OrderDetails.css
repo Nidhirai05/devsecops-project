@@ -1,0 +1,87 @@
+.order-details-page{
+
+    background:#F8F9FC;
+
+    min-height:100vh;
+
+    padding:40px 0;
+
+}
+
+.order-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+}
+
+.order-header h2{
+
+    font-family:'Playfair Display',serif;
+
+    margin-bottom:10px;
+
+}
+
+.order-header p{
+
+    color:#777;
+
+}
+
+.status{
+
+    padding:10px 22px;
+
+    border-radius:30px;
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.status.delivered{
+
+    background:#28A745;
+
+}
+
+.status.processing{
+
+    background:#FFC107;
+
+    color:#222;
+
+}
+
+.status.cancelled{
+
+    background:#DC3545;
+
+}
+
+@media(max-width:768px){
+
+.order-header{
+
+    flex-direction:column;
+
+    gap:20px;
+
+    text-align:center;
+
+}
+
+}

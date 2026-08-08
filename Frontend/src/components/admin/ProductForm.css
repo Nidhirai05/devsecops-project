@@ -1,0 +1,52 @@
+.product-form{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.product-form label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.product-form .form-control,
+.product-form .form-select{
+
+    height:48px;
+
+    border-radius:10px;
+
+}
+
+.product-form textarea{
+
+    border-radius:10px;
+
+}
+
+.product-form .btn{
+
+    background:#7C3AED;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:10px;
+
+}
+
+.product-form .btn:hover{
+
+    background:#5B21B6;
+
+}

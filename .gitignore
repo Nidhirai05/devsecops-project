@@ -1,0 +1,24 @@
+# Frontend
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.env
+
+# Backend / Spring Boot
+Backend/**/target/
+Backend/**/.metadata/
+Backend/**/.settings/
+Backend/**/.classpath
+Backend/**/.project
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Environment
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
