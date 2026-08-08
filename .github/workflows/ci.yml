@@ -40,7 +40,7 @@ jobs:
   #########################################################
   sonarqube:
     name: "2. SonarQube SAST Scan"
-    runs-on: ubuntu-latest
+    runs-on: Agent-1
     needs: gitleaks
     steps:
       - name: Checkout Repository
@@ -76,7 +76,7 @@ jobs:
   #########################################################
   trivy-fs:
     name: "3. Trivy Filesystem Scan"
-    runs-on: ubuntu-latest
+    runs-on: Agent-1
     needs: sonarqube
     steps:
       - name: Checkout Repository
@@ -108,7 +108,7 @@ jobs:
   #########################################################
   owasp-dependency-check:
     name: "4. OWASP Dependency-Check"
-    runs-on: ubuntu-latest
+    runs-on: Agent-1
     needs: trivy-fs
     steps:
       - name: Checkout Repository
