@@ -55,7 +55,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
-          cache-dependency-path: 'backend/pom.xml'
+          cache-dependency-path: 'Backend/pom.xml'
 
       # Compile Spring Boot backend code to generate bytecode in target/classes
       - name: Compile Backend Bytecode
