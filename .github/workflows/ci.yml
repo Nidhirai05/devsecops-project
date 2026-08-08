@@ -55,7 +55,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
-          cache-dependency-path: 'Backend/pom.xml'
+          cache-dependency-path: 'Backend/StyleAura/pom.xml'
 
       # Compile Spring Boot backend code to generate bytecode in target/classes
       - name: Compile Backend Bytecode
@@ -154,7 +154,7 @@ jobs:
 
       # --- BACKEND: BUILD, SBOM, SCAN, PUSH ---
       - name: Build Backend Docker Image
-        run: docker build -t nidhirai1105/styleaura-backend-app:${{ github.sha }} ./Backend
+        run: docker build -t nidhirai1105/styleaura-backend-app:${{ github.sha }} ./Backend/StyleAura
 
       - name: Install Syft & Generate Backend SBOM
         run: |
