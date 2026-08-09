@@ -6,7 +6,7 @@ import Footer from "../components/common/Footer";
 import ProductGallery from "../components/product/ProductGallery";
 import ProductInfo from "../components/product/ProductInfo";
 import SimilarProducts from "../components/product/SimilarProducts";
-import ProductDescription from "../components/product/ProductDEscription";
+import ProductDescription from "../components/product/ProductDescription";
 import { allProducts } from "../data/products";
 
 import "./ProductDetails.css";

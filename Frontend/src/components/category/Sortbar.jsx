@@ -1,4 +1,4 @@
-import "./SortBar.css";
+import "./Sortbar.css";
 
 function SortBar({
     totalProducts,

@@ -6,7 +6,7 @@ import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 
 import FilterSidebar from "../components/category/FilterSidebar";
-import SortBar from "../components/category/SortBar";
+import SortBar from "../components/category/Sortbar";
 import ProductGrid from "../components/product/ProductGrid";
 import useProductFilters from "../hooks/useProductFilters";
 import "./CategoryPage.css";
