@@ -71,7 +71,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-  #########################################################
+#########################################################
   # 3. Filesystem Security Scan (Trivy)
   #########################################################
   trivy-fs:
@@ -82,20 +82,33 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17' # Adjust to match your project's Java version
+
+      - name: Cache Maven Packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Resolve Maven Dependencies
+        run: mvn dependency:resolve
+
       - name: Create Reports Directory
         run: mkdir -p reports
 
       - name: Trivy FS Scan
         uses: aquasecurity/trivy-action@master
-        # env:
-        #   TRIVY_SKIP_DB_UPDATE: 'true'
-        #   TRIVY_SKIP_JAVA_DB_UPDATE: 'true'
         with:
           scan-type: 'fs'
           scan-ref: '.'
           format: 'table'
           output: 'reports/trivy-fs-report.txt'
-          # cache-dir: '/var/tmp/trivy-cache'
           
       - name: Upload Trivy FS Report
         uses: actions/upload-artifact@v4
@@ -103,6 +116,7 @@ jobs:
           name: trivy-fs-report
           path: 'reports/trivy-fs-report.txt'
           retention-days: 30
+          
   #########################################################
   # 4. Software Composition Analysis (OWASP Dependency-Check)
   #########################################################
