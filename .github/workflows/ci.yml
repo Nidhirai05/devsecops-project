@@ -86,18 +86,18 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17' # Adjust to match your project's Java version
+          java-version: '17' # Adjust to match your project's version
 
       - name: Cache Maven Packages
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('Backend/StyleAura/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
       - name: Resolve Maven Dependencies
-        run: mvn dependency:resolve
+        run: mvn dependency:resolve -f Backend/StyleAura/pom.xml
 
       - name: Create Reports Directory
         run: mkdir -p reports
@@ -109,6 +109,7 @@ jobs:
           scan-ref: '.'
           format: 'table'
           output: 'reports/trivy-fs-report.txt'
+          args: '--offline-scan'
           
       - name: Upload Trivy FS Report
         uses: actions/upload-artifact@v4
