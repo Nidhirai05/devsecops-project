@@ -76,7 +76,7 @@ jobs:
   #########################################################
   trivy-fs:
     name: "3. Trivy Filesystem Scan"
-    runs-on: Agent-1
+    runs-on: ubuntu-latest
     needs: sonarqube
     steps:
       - name: Checkout Repository
